@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AskAub — Live Questions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="feed-page">
+
+  <header class="site-header">
+    <div class="logo">Ask<span class="logo-accent">Aub</span></div>
+    <a href="index.html" class="nav-link nav-link--cta">+ Ask a question</a>
+  </header>
+
+  <main class="feed-main">
+    <div class="feed-header-block">
+      <h1 class="feed-title">Live Questions</h1>
+      <div class="live-dot-wrap">
+        <span class="live-dot"></span>
+        <span class="live-label">Live</span>
+      </div>
+    </div>
+
+    <div class="feed-controls">
+      <div class="filter-row">
+        <div class="select-wrap select-wrap--inline">
+          <select id="topicFilter" class="field-select field-select--sm">
+            <option value="">All topics</option>
+          </select>
+          <span class="select-arrow">↓</span>
+        </div>
+
+        <div class="sort-tabs">
+          <button class="sort-tab sort-tab--active" data-sort="votes">Top voted</button>
+          <button class="sort-tab" data-sort="newest">Newest</button>
+        </div>
+      </div>
+
+      <div class="question-count" id="questionCount">Loading…</div>
+    </div>
+
+    <div class="questions-list" id="questionsList">
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <span>Fetching questions…</span>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState" hidden>
+      <div class="empty-icon">💬</div>
+      <p class="empty-title">No questions yet</p>
+      <p class="empty-sub">Be the first to ask something!</p>
+      <a href="index.html" class="btn-primary">Ask a question</a>
+    </div>
+  </main>
+
+  <!-- Question card template -->
+  <template id="questionTemplate">
+    <div class="question-card" data-id="">
+      <div class="vote-col">
+        <button class="vote-btn" aria-label="Upvote">
+          <svg class="vote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 5l7 7H5l7-7z"/>
+          </svg>
+          <span class="vote-count">0</span>
+        </button>
+      </div>
+      <div class="question-body">
+        <p class="question-text"></p>
+        <div class="question-meta">
+          <span class="question-topic"></span>
+          <span class="question-sep">·</span>
+          <span class="question-author"></span>
+          <span class="question-sep">·</span>
+          <span class="question-time"></span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

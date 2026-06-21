@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # API Gateway (Nginx reverse proxy)
+  api-gateway:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - question-service
+      - vote-service
+      - frontend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # Question Microservice
+  question-service:
+    build: ./services/question-service
+    environment:
+      - PORT=3001
+      - DB_PATH=/data/questions.db
+    volumes:
+      - question-data:/data
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Vote Microservice
+  vote-service:
+    build: ./services/vote-service
+    environment:
+      - PORT=3002
+      - DB_PATH=/data/votes.db
+      - QUESTION_SERVICE_URL=http://question-service:3001
+    volumes:
+      - vote-data:/data
+    networks:
+      - app-network
+    depends_on:
+      - question-service
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Frontend (static file server)
+  frontend:
+    build: ./frontend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  question-data:
+  vote-data:
+
+networks:
+  app-network:
+    driver: bridge

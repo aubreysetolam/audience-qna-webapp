@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AskAub — Ask Your Question</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="submit-page">
+
+  <header class="site-header">
+    <div class="logo">Ask<span class="logo-accent">Aub</span></div>
+    <a href="feed.html" class="nav-link">See all questions →</a>
+  </header>
+
+  <main class="submit-main">
+    <div class="hero-block">
+      <p class="hero-eyebrow">Live Q&amp;A</p>
+      <h1 class="hero-title">What's on<br>your mind?</h1>
+      <p class="hero-sub">Submit your question and let the crowd vote it up.</p>
+    </div>
+
+    <div class="card form-card">
+      <form id="questionForm" novalidate>
+
+        <div class="field-group">
+          <label class="field-label" for="questionText">Your question</label>
+          <textarea
+            id="questionText"
+            class="field-textarea"
+            placeholder="Type your question here…"
+            maxlength="500"
+            rows="4"
+            required
+          ></textarea>
+          <div class="char-counter"><span id="charCount">0</span> / 500</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group field-group--half">
+            <label class="field-label" for="topicSelect">Topic</label>
+            <div class="select-wrap">
+              <select id="topicSelect" class="field-select" required>
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="GeneralDevOps">General DevOps</option>
+                <option value="Git">Git</option>
+                <option value="Github">Github</option>
+                <option value="CICD">CI/CD(Github Actions)</option>
+                <option value="IaC">IaC/Terraform</option>
+                <option value="Docker">Docker</option>
+                <option value="Cloud">Cloud</option>
+                <option value="Monitoring">Monitoring</option>
+                <option value="Other">Other</option>
+              </select>
+              <span class="select-arrow">↓</span>
+            </div>
+          </div>
+
+          <div class="field-group field-group--half">
+            <label class="field-label" for="authorName">
+              Your name <span class="optional-tag">optional</span>
+            </label>
+            <input
+              id="authorName"
+              class="field-input"
+              type="text"
+              placeholder="Anonymous"
+              maxlength="100"
+            />
+          </div>
+        </div>
+
+        <div class="form-error" id="formError" role="alert" hidden></div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="btn-text">Submit question</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="success-card" id="successCard" hidden>
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Question submitted!</h2>
+      <p class="success-sub">Your question is live. Others can see and vote on it now.</p>
+      <div class="success-actions">
+        <a href="feed.html" class="btn-primary">See all questions</a>
+        <button class="btn-ghost" id="submitAnother">Ask another</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
